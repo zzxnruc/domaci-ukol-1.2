@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Model - Note Management</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #eef3f8;
+        color: #222;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1050px;
+        margin: 30px auto;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      header {
+        background: linear-gradient(135deg, #1d4e89, #2f80c9);
+        color: white;
+        padding: 35px 40px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 34px;
+      }
+
+      header p {
+        margin: 10px 0 0;
+        font-size: 17px;
+        color: #e8f2ff;
+      }
+
+      main {
+        padding: 30px 40px 45px;
+      }
+
+      section {
+        margin-bottom: 35px;
+      }
+
+      h2 {
+        color: #1d4e89;
+        border-left: 5px solid #2f80c9;
+        padding-left: 12px;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        color: #163b66;
+        margin-top: 0;
+      }
+
+      .box {
+        background: #f8fbff;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 12px;
+      }
+
+      .small-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .info-card {
+        background: white;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 3px 10px rgba(29, 78, 137, 0.06);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 9px;
+        background: #e4f1ff;
+        color: #1d4e89;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        border: 1px solid #ccd8e5;
+        padding: 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #e4f1ff;
+        color: #163b66;
+      }
+
+      .erd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 22px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .entity {
+        width: 230px;
+        border: 2px solid #1d4e89;
+        border-radius: 10px;
+        overflow: hidden;
+        background: white;
+      }
+
+      .entity-title {
+        background: #1d4e89;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .entity-body {
+        padding: 12px 16px;
+      }
+
+      .relation {
+        text-align: center;
+        color: #1d4e89;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .relation-line {
+        display: block;
+        width: 120px;
+        height: 2px;
+        background: #1d4e89;
+        margin: 5px auto;
+      }
+
+      .caption {
+        text-align: center;
+        color: #555;
+        font-size: 14px;
+        margin-top: 14px;
+      }
+
+      ol {
+        padding-left: 22px;
+        margin-bottom: 0;
+      }
+
+      .use-case {
+        background: white;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 10px rgba(29, 78, 137, 0.05);
+      }
+
+      .use-case h3 {
+        border-bottom: 1px solid #d7e2ef;
+        padding-bottom: 8px;
+      }
+
+      .conditions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin: 15px 0;
+      }
+
+      .condition {
+        background: #f8fbff;
+        border-left: 4px solid #2f80c9;
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .condition strong {
+        color: #1d4e89;
+      }
+
+      .workflow-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .workflow {
+        background: #ffffff;
+        border: 1px solid #d7e2ef;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 3px 10px rgba(29, 78, 137, 0.05);
+      }
+
+      .workflow h3 {
+        margin-bottom: 12px;
+        color: #1d4e89;
+      }
+
+      .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #f8fbff;
+        border-radius: 8px;
+        border: 1px solid #e1e9f3;
+      }
+
+      .num {
+        min-width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #2f80c9;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .footer {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        padding-top: 25px;
+        border-top: 1px solid #d7e2ef;
+        margin-top: 35px;
+      }
+
+      @media (max-width: 800px) {
+        header,
+        main {
+          padding: 25px;
+        }
+
+        .small-grid,
+        .conditions,
+        .workflow-grid {
+          grid-template-columns: 1fr;
+        }
+
+        header h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Note Management Web Application</h1>
+        <p>Business model for a simple web application</p>
+      </header>
+
+      <main>
+        <section>
+          <h2>Vision</h2>
+          <div class="box">
+            <p>
+              Note Management is a simple web application for creating and
+              managing personal notes. The user can create notes, edit them,
+              view saved records and filter them by category.
+            </p>
+            <p>
+              The application is available without registration and login. It is
+              designed for simple everyday use.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Products</h2>
+          <div class="box">
+            <h3>Entity Relationship Diagram</h3>
+            <div class="erd">
+              <div class="entity">
+                <div class="entity-title">CATEGORY</div>
+                <div class="entity-body">
+                  id (PK)<br />
+                  name<br />
+                  color
+                </div>
+              </div>
+
+              <div class="relation">
+                1
+                <span class="relation-line"></span>
+                N
+              </div>
+
+              <div class="entity">
+                <div class="entity-title">NOTE</div>
+                <div class="entity-body">
+                  id (PK)<br />
+                  title<br />
+                  content<br />
+                  status<br />
+                  created_at<br />
+                  category_id (FK)
+                </div>
+              </div>
+            </div>
+            <p class="caption">One category can contain many notes.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Product Details</h2>
+          <div class="small-grid">
+            <div class="info-card">
+              <span class="badge">Product 1</span>
+              <h3>Category</h3>
+              <p>
+                Category represents a group where notes are organized. It helps
+                the user sort notes.
+              </p>
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+                <tr>
+                  <td>id</td>
+                  <td>Unique identifier of the category. Primary key.</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>
+                    Name of the category, for example School, Work or Personal.
+                  </td>
+                </tr>
+                <tr>
+                  <td>color</td>
+                  <td>Optional color used for better visual organization.</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="info-card">
+              <span class="badge">Product 2</span>
+              <h3>Note</h3>
+              <p>
+                Note represents one saved record created by the user. A note
+                belongs to one selected category.
+              </p>
+              <table>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                </tr>
+                <tr>
+                  <td>id</td>
+                  <td>Unique identifier of the note. Primary key.</td>
+                </tr>
+                <tr>
+                  <td>title</td>
+                  <td>Short title of the note.</td>
+                </tr>
+                <tr>
+                  <td>content</td>
+                  <td>Main text of the note.</td>
+                </tr>
+                <tr>
+                  <td>status</td>
+                  <td>Current status of the note.</td>
+                </tr>
+                <tr>
+                  <td>created_at</td>
+                  <td>Date and time when the note was created.</td>
+                </tr>
+                <tr>
+                  <td>category_id</td>
+                  <td>Foreign key that connects the note to a category.</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Business Use Cases</h2>
+
+          <div class="use-case">
+            <h3>View Notes Overview</h3>
+            <div class="conditions">
+              <div class="condition">
+                <strong>Pre-conditions:</strong><br />The application is open
+                and there are saved notes in the system.
+              </div>
+              <div class="condition">
+                <strong>Post-conditions:</strong><br />The user sees all notes
+                with their categories.
+              </div>
+            </div>
+            <h4>Happy day scénář</h4>
+            <ol>
+              <li>User opens the notes page.</li>
+              <li>System loads saved notes.</li>
+              <li>System displays the notes.</li>
+              <li>User reviews the records.</li>
+            </ol>
+          </div>
+
+          <div class="use-case">
+            <h3>Add a New Note</h3>
+            <div class="conditions">
+              <div class="condition">
+                <strong>Pre-conditions:</strong><br />The user is on the notes
+                page and categories are available.
+              </div>
+              <div class="condition">
+                <strong>Post-conditions:</strong><br />A new note is created and
+                shown in the notes list.
+              </div>
+            </div>
+            <h4>Happy day scénář</h4>
+            <ol>
+              <li>User clicks on "New Note".</li>
+              <li>System opens the form.</li>
+              <li>User enters title and content.</li>
+              <li>User selects a category.</li>
+              <li>User clicks save.</li>
+              <li>System stores the note.</li>
+            </ol>
+          </div>
+
+          <div class="use-case">
+            <h3>Edit an Existing Note</h3>
+            <div class="conditions">
+              <div class="condition">
+                <strong>Pre-conditions:</strong><br />At least one note already
+                exists.
+              </div>
+              <div class="condition">
+                <strong>Post-conditions:</strong><br />The selected note is
+                updated.
+              </div>
+            </div>
+            <h4>Happy day scénář</h4>
+            <ol>
+              <li>User selects a note.</li>
+              <li>System opens note details.</li>
+              <li>User changes the data.</li>
+              <li>User saves changes.</li>
+              <li>System updates the note.</li>
+            </ol>
+          </div>
+
+          <div class="use-case">
+            <h3>Filter Notes by Category</h3>
+            <div class="conditions">
+              <div class="condition">
+                <strong>Pre-conditions:</strong><br />The notes page is open and
+                categories exist.
+              </div>
+              <div class="condition">
+                <strong>Post-conditions:</strong><br />Only notes from the
+                selected category are displayed.
+              </div>
+            </div>
+            <h4>Happy day scénář</h4>
+            <ol>
+              <li>User selects a category filter.</li>
+              <li>System applies the filter.</li>
+              <li>System displays matching notes.</li>
+              <li>User can clear the filter.</li>
+              <li>System shows all notes again.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section>
+          <h2>Workflow Maps</h2>
+          <div class="workflow-grid">
+            <div class="workflow">
+              <h3>User Story 1 – View Notes Overview</h3>
+              <div class="step">
+                <span class="num">1</span
+                ><span>User opens the notes page.</span>
+              </div>
+              <div class="step">
+                <span class="num">2</span><span>System loads saved notes.</span>
+              </div>
+              <div class="step">
+                <span class="num">3</span
+                ><span>System shows notes with categories.</span>
+              </div>
+              <div class="step">
+                <span class="num">4</span><span>User reviews the records.</span>
+              </div>
+            </div>
+
+            <div class="workflow">
+              <h3>User Story 2 – Add a New Note</h3>
+              <div class="step">
+                <span class="num">1</span><span>User clicks "New Note".</span>
+              </div>
+              <div class="step">
+                <span class="num">2</span><span>System opens the form.</span>
+              </div>
+              <div class="step">
+                <span class="num">3</span><span>User enters note data.</span>
+              </div>
+              <div class="step">
+                <span class="num">4</span><span>User saves the note.</span>
+              </div>
+              <div class="step">
+                <span class="num">5</span
+                ><span>System validates and stores the note.</span>
+              </div>
+            </div>
+
+            <div class="workflow">
+              <h3>User Story 3 – Edit an Existing Note</h3>
+              <div class="step">
+                <span class="num">1</span
+                ><span>User selects an existing note.</span>
+              </div>
+              <div class="step">
+                <span class="num">2</span
+                ><span>System opens note details.</span>
+              </div>
+              <div class="step">
+                <span class="num">3</span><span>User edits the data.</span>
+              </div>
+              <div class="step">
+                <span class="num">4</span><span>User saves changes.</span>
+              </div>
+              <div class="step">
+                <span class="num">5</span><span>System updates the note.</span>
+              </div>
+            </div>
+
+            <div class="workflow">
+              <h3>User Story 4 – Filter Notes by Category</h3>
+              <div class="step">
+                <span class="num">1</span><span>User selects a category.</span>
+              </div>
+              <div class="step">
+                <span class="num">2</span><span>System filters notes.</span>
+              </div>
+              <div class="step">
+                <span class="num">3</span
+                ><span>System displays matching notes.</span>
+              </div>
+              <div class="step">
+                <span class="num">4</span><span>User clears the filter.</span>
+              </div>
+              <div class="step">
+                <span class="num">5</span
+                ><span>System displays all notes again.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
